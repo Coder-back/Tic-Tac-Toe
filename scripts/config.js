@@ -23,7 +23,17 @@ function savePlayerConfig(event) {
     return;
   }
 
-  const updatedPlayerDataElement = document.getElementById('player-' + editedPlayer + '-data');
+  // Check if the entered name is the same as the other player's name
+  const otherPlayerIndex = editedPlayer === 1 ? 1 : 0; // If editedPlayer is 1, the other player is at index 1, otherwise at index 0
+  if (enteredPlayerName === players[otherPlayerIndex].name) {
+    event.target.firstElementChild.classList.add("error");
+    errorsOutputElement.textContent = "Player names must be different.";
+    return;
+  }
+
+  const updatedPlayerDataElement = document.getElementById(
+    "player-" + editedPlayer + "-data"
+  );
   updatedPlayerDataElement.children[1].textContent = enteredPlayerName;
 
   players[editedPlayer - 1].name = enteredPlayerName;
